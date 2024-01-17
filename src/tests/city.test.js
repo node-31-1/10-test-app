@@ -22,6 +22,20 @@ test("POST /cities debe crear una ciudad", async () => {
     expect(res.body.name).toBe(newCity.name);
 });
 
+test("GET /cities/:id debe traer una ciudad por id", async () => {
+    const res = await request(app).get(`/cities/${id}`);
+    expect(res.status).toBe(200);
+});
+
+test("PUT /cities/:id debe actualizar una ciudad", async () => {
+    const city = {
+        name: "Ciudad de Mexico actualizada",
+    }
+    const res = await request(app).put(`/cities/${id}`).send(city);
+    expect(res.status).toBe(200);
+    expect(res.body.name).toBe(city.name);
+})
+
 test("DELETE /cities/:id debe eliminar una ciudad", async () => {
     const res = await request(app).delete(`/cities/${id}`);
     expect(res.status).toBe(204);
